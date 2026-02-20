@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — LocalMusic AI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+            background: #090b12;
+            color: rgba(255,255,255,0.85);
+            min-height: 100vh;
+        }
+        .bg {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(70,199,255,0.08) 0%, transparent 50%),
+                #090b12;
+        }
+        .content {
+            position: relative; z-index: 1;
+            max-width: 640px; margin: 0 auto; padding: 60px 24px;
+        }
+        .back { font-size: 13px; color: #46c7ff; text-decoration: none; display: inline-block; margin-bottom: 24px; }
+        .back:hover { opacity: 0.8; }
+        h1 {
+            font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 8px;
+        }
+        .updated { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 32px; }
+        h2 { font-size: 18px; font-weight: 600; color: #fff; margin-top: 32px; margin-bottom: 12px; }
+        p, li { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+        ul { padding-left: 20px; margin-bottom: 12px; }
+        li { margin-bottom: 6px; }
+        .highlight {
+            background: rgba(45,212,191,0.1);
+            border: 1px solid rgba(45,212,191,0.2);
+            border-radius: 8px; padding: 16px;
+            margin: 20px 0;
+        }
+        .highlight p { color: rgba(255,255,255,0.8); margin-bottom: 0; }
+        a { color: #46c7ff; }
+        .footer {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 24px; margin-top: 48px;
+            font-size: 12px; color: rgba(255,255,255,0.35);
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 26px; }
+            .content { padding: 40px 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="content">
+        <a href="index.html" class="back">&larr; LocalMusic AI</a>
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated: February 20, 2025</p>
+
+        <div class="highlight">
+            <p><strong>LocalMusic AI does not collect, store, or transmit any personal data.</strong> All AI processing happens on your device.</p>
+        </div>
+
+        <h2>Overview</h2>
+        <p>LocalMusic AI is designed with privacy as a core principle. The app runs AI models locally on your Mac using Apple Silicon. Your prompts, lyrics, and generated music never leave your device.</p>
+
+        <h2>Data We Do Not Collect</h2>
+        <p>We do not collect, track, or have access to:</p>
+        <ul>
+            <li>Personal information (name, email, location)</li>
+            <li>Usage analytics or telemetry</li>
+            <li>Music prompts, lyrics, or generated content</li>
+            <li>Device identifiers or advertising IDs</li>
+            <li>Crash reports or diagnostics</li>
+        </ul>
+
+        <h2>Network Activity</h2>
+        <p>The app makes the following network requests, none of which transmit personal data:</p>
+        <ul>
+            <li><strong>AI Model Download</strong> — On first launch, the app downloads the ACE-Step AI model (~4 GB) from Hugging Face. This is a one-time download cached locally.</li>
+            <li><strong>News Feed</strong> — The app fetches a public JSON file from GitHub to display app news and updates. No user data is sent.</li>
+            <li><strong>Stem Separation Model</strong> — If you use the stem separation feature, a ~36 MB model is downloaded once from GitHub.</li>
+            <li><strong>LoRA Style Adapters</strong> — Optional style models are downloaded from Hugging Face when selected.</li>
+        </ul>
+
+        <h2>Optional Cloud Generation</h2>
+        <p>The app offers an optional cloud generation feature that sends your music prompt to the ACE Music API. This feature:</p>
+        <ul>
+            <li>Requires you to provide your own API key</li>
+            <li>Is disabled by default</li>
+            <li>Only sends the prompt text and generation parameters you choose</li>
+            <li>Is governed by the ACE Music API's own privacy policy</li>
+        </ul>
+
+        <h2>Local Storage</h2>
+        <p>All generated music, playlists, and settings are stored locally in your Mac's sandboxed application container. This data is only accessible to LocalMusic AI and is removed if you delete the app.</p>
+
+        <h2>Third-Party Services</h2>
+        <p>The app does not include any third-party analytics, advertising, or tracking SDKs.</p>
+
+        <h2>Children's Privacy</h2>
+        <p>LocalMusic AI does not collect data from any users, including children under 13.</p>
+
+        <h2>Changes to This Policy</h2>
+        <p>If this policy is updated, the changes will be posted on this page with an updated date.</p>
+
+        <h2>Contact</h2>
+        <p>If you have questions about this privacy policy, please open an issue on our <a href="https://github.com/fspecii/LocalMusicAI/issues">GitHub repository</a>.</p>
+
+        <div class="footer">
+            <p>&copy; 2025 Valentin Neagu. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

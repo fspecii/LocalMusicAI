@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — LocalMusic AI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+            background: #090b12;
+            color: rgba(255,255,255,0.85);
+            min-height: 100vh;
+        }
+        .bg {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(70,199,255,0.08) 0%, transparent 50%),
+                #090b12;
+        }
+        .content {
+            position: relative; z-index: 1;
+            max-width: 640px; margin: 0 auto; padding: 60px 24px;
+        }
+        .back { font-size: 13px; color: #46c7ff; text-decoration: none; display: inline-block; margin-bottom: 24px; }
+        .back:hover { opacity: 0.8; }
+        h1 { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+        .subtitle { font-size: 15px; color: rgba(255,255,255,0.5); margin-bottom: 36px; }
+        h2 { font-size: 18px; font-weight: 600; color: #fff; margin-top: 32px; margin-bottom: 12px; }
+        p, li { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+        ul { padding-left: 20px; margin-bottom: 12px; }
+        li { margin-bottom: 8px; }
+        a { color: #46c7ff; }
+        .card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; padding: 20px;
+            margin-bottom: 16px;
+        }
+        .card h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+        .card p { margin-bottom: 0; }
+        .req {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px; padding: 16px;
+            margin: 20px 0;
+        }
+        .req p { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 4px; }
+        .req strong { color: rgba(255,255,255,0.8); }
+        .footer {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 24px; margin-top: 48px;
+            font-size: 12px; color: rgba(255,255,255,0.35);
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 26px; }
+            .content { padding: 40px 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="content">
+        <a href="index.html" class="back">&larr; LocalMusic AI</a>
+        <h1>Support</h1>
+        <p class="subtitle">Get help with LocalMusic AI</p>
+
+        <div class="card">
+            <h3>Report a Bug or Request a Feature</h3>
+            <p>Open an issue on our <a href="https://github.com/fspecii/LocalMusicAI/issues">GitHub Issues</a> page. Please include your macOS version and a description of the problem.</p>
+        </div>
+
+        <h2>System Requirements</h2>
+        <div class="req">
+            <p><strong>macOS:</strong> 15.0 (Sequoia) or later</p>
+            <p><strong>Chip:</strong> Apple Silicon (M1 or later)</p>
+            <p><strong>RAM:</strong> 16 GB minimum, 32 GB recommended</p>
+            <p><strong>Storage:</strong> ~5 GB for the AI model (downloaded on first launch)</p>
+        </div>
+
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="card">
+            <h3>The app is downloading a large model on first launch. Is this normal?</h3>
+            <p>Yes. LocalMusic AI downloads the ACE-Step AI model (~4 GB) the first time you generate music. This is cached locally and only needs to happen once.</p>
+        </div>
+
+        <div class="card">
+            <h3>Generation is slow on my machine. What can I do?</h3>
+            <p>Generation speed depends on your Apple Silicon chip and available RAM. Reducing the duration or number of diffusion steps will speed things up. Machines with 8 GB RAM may experience slower generation due to memory pressure.</p>
+        </div>
+
+        <div class="card">
+            <h3>Can I use the app offline?</h3>
+            <p>Yes, once the AI model is downloaded. All music generation runs locally on your Mac. The only features requiring internet are the initial model download and the optional cloud generation mode.</p>
+        </div>
+
+        <div class="card">
+            <h3>Where are my generated songs stored?</h3>
+            <p>Songs are stored in the app's sandboxed container. You can export them using the share or save options within the app.</p>
+        </div>
+
+        <div class="card">
+            <h3>How do I delete the model cache to free disk space?</h3>
+            <p>Go to Settings within the app and use the "Delete Model Cache" option. The model will be re-downloaded the next time you generate music.</p>
+        </div>
+
+        <div class="card">
+            <h3>What is stem separation?</h3>
+            <p>Stem separation splits an audio file into separate tracks (vocals and accompaniment). It uses a Spleeter model that is downloaded separately (~36 MB) on first use.</p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 Valentin Neagu. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
