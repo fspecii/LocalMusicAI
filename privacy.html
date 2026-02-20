@@ -4,113 +4,309 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy — LocalMusic AI</title>
+    <meta name="description" content="LocalMusic AI does not collect, store, or transmit any personal data. All AI processing happens on your device.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #060810;
+            --bg-raised: rgba(255,255,255,0.04);
+            --glass: rgba(255,255,255,0.06);
+            --glass-border: rgba(255,255,255,0.09);
+            --glass-hover: rgba(255,255,255,0.10);
+            --sky: #46c7ff;
+            --sky-light: #7dd3fc;
+            --teal: #2dd4bf;
+            --teal-dark: #0f766e;
+            --warm: #f59e0b;
+            --text: #e2e8f0;
+            --text-dim: rgba(255,255,255,0.55);
+            --text-muted: rgba(255,255,255,0.35);
+            --sans: 'DM Sans', -apple-system, sans-serif;
+            --serif: 'Instrument Serif', Georgia, serif;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
-            background: #090b12;
-            color: rgba(255,255,255,0.85);
-            min-height: 100vh;
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
-        .bg {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;
-            background:
-                radial-gradient(ellipse at 20% 20%, rgba(70,199,255,0.08) 0%, transparent 50%),
-                #090b12;
+
+        /* ── Aurora Background ── */
+        .aurora {
+            position: fixed; inset: 0; z-index: 0; overflow: hidden;
+            background: var(--bg);
         }
-        .content {
-            position: relative; z-index: 1;
-            max-width: 640px; margin: 0 auto; padding: 60px 24px;
+        .aurora::before, .aurora::after {
+            content: ''; position: absolute; border-radius: 50%;
+            filter: blur(120px); opacity: 0.5;
+            animation: drift 20s ease-in-out infinite alternate;
         }
-        .back { font-size: 13px; color: #46c7ff; text-decoration: none; display: inline-block; margin-bottom: 24px; }
-        .back:hover { opacity: 0.8; }
-        h1 {
-            font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 8px;
+        .aurora::before {
+            width: 800px; height: 600px; top: -15%; left: -10%;
+            background: radial-gradient(ellipse, rgba(70,199,255,0.18), rgba(45,212,191,0.08), transparent 70%);
         }
-        .updated { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 32px; }
-        h2 { font-size: 18px; font-weight: 600; color: #fff; margin-top: 32px; margin-bottom: 12px; }
-        p, li { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
-        ul { padding-left: 20px; margin-bottom: 12px; }
-        li { margin-bottom: 6px; }
-        .highlight {
-            background: rgba(45,212,191,0.1);
-            border: 1px solid rgba(45,212,191,0.2);
-            border-radius: 8px; padding: 16px;
-            margin: 20px 0;
+        .aurora::after {
+            width: 700px; height: 700px; bottom: -20%; right: -15%;
+            background: radial-gradient(ellipse, rgba(45,212,191,0.12), rgba(14,165,233,0.06), transparent 70%);
+            animation-delay: -10s; animation-duration: 25s;
         }
-        .highlight p { color: rgba(255,255,255,0.8); margin-bottom: 0; }
-        a { color: #46c7ff; }
-        .footer {
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 24px; margin-top: 48px;
-            font-size: 12px; color: rgba(255,255,255,0.35);
+        .aurora-accent {
+            position: fixed; width: 500px; height: 400px;
+            top: 30%; left: 50%; transform: translate(-50%, -50%);
+            background: radial-gradient(ellipse, rgba(139,92,246,0.06), transparent 70%);
+            filter: blur(100px); border-radius: 50%; z-index: 0;
+            animation: drift 30s ease-in-out infinite alternate-reverse;
         }
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -20px) scale(1.05); }
+            100% { transform: translate(-20px, 15px) scale(0.97); }
+        }
+        .grain {
+            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 200px;
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 0 24px; height: 56px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(6,8,16,0.7);
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .nav-brand {
+            font-weight: 600; font-size: 15px; color: #fff;
+            text-decoration: none; display: flex; align-items: center; gap: 8px;
+        }
+        .nav-brand svg { opacity: 0.9; }
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-links a {
+            font-size: 13px; font-weight: 500; color: var(--text-dim);
+            text-decoration: none; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #fff; }
+        .nav-cta {
+            font-size: 12px !important; font-weight: 600 !important;
+            padding: 6px 16px; border-radius: 8px;
+            background: rgba(255,255,255,0.08) !important;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff !important; transition: all 0.2s !important;
+        }
+        .nav-cta:hover { background: rgba(255,255,255,0.14) !important; }
+
+        /* ── Layout ── */
+        .page { position: relative; z-index: 2; }
+        .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+
+        /* ── Reveal Animation ── */
+        .reveal {
+            opacity: 0; transform: translateY(32px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible { opacity: 1; transform: none; }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* ── Header ── */
+        .page-header {
+            padding-top: 120px; padding-bottom: 48px;
+        }
+        .page-header h1 {
+            font-family: var(--serif); font-weight: 400; font-style: italic;
+            font-size: clamp(36px, 6vw, 52px); line-height: 1.1;
+            color: #fff; margin-bottom: 12px;
+        }
+        .page-header .updated {
+            font-size: 13px; color: var(--text-muted);
+        }
+
+        /* ── Highlight Box ── */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(45,212,191,0.08), rgba(70,199,255,0.05));
+            border: 1px solid rgba(45,212,191,0.18);
+            border-radius: 16px; padding: 24px 28px;
+            margin-bottom: 48px;
+        }
+        .highlight-box p {
+            font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.85);
+            margin: 0;
+        }
+        .highlight-box strong { color: #fff; }
+
+        /* ── Content Sections ── */
+        .content-section { margin-bottom: 40px; }
+        .content-section h2 {
+            font-size: 18px; font-weight: 600; color: #fff;
+            margin-bottom: 14px; padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .content-section p {
+            font-size: 14px; line-height: 1.75; color: var(--text-dim);
+            margin-bottom: 14px;
+        }
+        .content-section ul {
+            list-style: none; padding: 0; margin-bottom: 14px;
+        }
+        .content-section li {
+            font-size: 14px; line-height: 1.75; color: var(--text-dim);
+            padding-left: 20px; position: relative; margin-bottom: 8px;
+        }
+        .content-section li::before {
+            content: '';
+            position: absolute; left: 0; top: 10px;
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--sky); opacity: 0.5;
+        }
+        .content-section strong { color: rgba(255,255,255,0.8); }
+        .content-section a { color: var(--sky); text-decoration: none; }
+        .content-section a:hover { text-decoration: underline; }
+
+        /* ── Footer ── */
+        footer {
+            padding: 32px 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            margin-top: 48px;
+        }
+        .footer-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 16px;
+        }
+        .footer-copy { font-size: 12px; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            font-size: 12px; color: var(--text-muted);
+            text-decoration: none; transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--sky); }
+
         @media (max-width: 600px) {
-            h1 { font-size: 26px; }
-            .content { padding: 40px 16px; }
+            .page-header h1 { font-size: 32px; }
+            .container { padding: 0 16px; }
+            .nav-links .nav-hide { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="bg"></div>
-    <div class="content">
-        <a href="index.html" class="back">&larr; LocalMusic AI</a>
-        <h1>Privacy Policy</h1>
-        <p class="updated">Last updated: February 20, 2025</p>
+    <div class="aurora"></div>
+    <div class="aurora-accent"></div>
+    <div class="grain"></div>
 
-        <div class="highlight">
-            <p><strong>LocalMusic AI does not collect, store, or transmit any personal data.</strong> All AI processing happens on your device.</p>
+    <nav>
+        <a href="index.html" class="nav-brand">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+            LocalMusic AI
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-hide">Home</a>
+            <a href="support.html" class="nav-hide">Support</a>
+            <a href="https://apps.apple.com/app/localmusic-ai/id0000000000" class="nav-cta">Get the App</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="reveal">Privacy Policy</h1>
+                <p class="updated reveal reveal-delay-1">Last updated: February 20, 2025</p>
+            </div>
+
+            <div class="highlight-box reveal reveal-delay-2">
+                <p><strong>LocalMusic AI does not collect, store, or transmit any personal data.</strong> All AI processing happens entirely on your device.</p>
+            </div>
+
+            <div class="content-section reveal">
+                <h2>Overview</h2>
+                <p>LocalMusic AI is designed with privacy as a core principle. The app runs AI models locally on your Mac using Apple Silicon. Your prompts, lyrics, and generated music never leave your device.</p>
+            </div>
+
+            <div class="content-section reveal">
+                <h2>Data We Do Not Collect</h2>
+                <p>We do not collect, track, or have access to:</p>
+                <ul>
+                    <li>Personal information (name, email, location)</li>
+                    <li>Usage analytics or telemetry</li>
+                    <li>Music prompts, lyrics, or generated content</li>
+                    <li>Device identifiers or advertising IDs</li>
+                    <li>Crash reports or diagnostics</li>
+                </ul>
+            </div>
+
+            <div class="content-section reveal">
+                <h2>Network Activity</h2>
+                <p>The app makes the following network requests, none of which transmit personal data:</p>
+                <ul>
+                    <li><strong>AI Model Download</strong> — On first launch, the app downloads the ACE-Step AI model (~4 GB) from Hugging Face. This is a one-time download cached locally.</li>
+                    <li><strong>News Feed</strong> — The app fetches a public JSON file from GitHub to display app news and updates. No user data is sent.</li>
+                    <li><strong>Stem Separation Model</strong> — If you use the stem separation feature, a ~36 MB model is downloaded once from GitHub.</li>
+                    <li><strong>LoRA Style Adapters</strong> — Optional style models are downloaded from Hugging Face when selected.</li>
+                </ul>
+            </div>
+
+            <div class="content-section reveal">
+                <h2>Optional Cloud Generation</h2>
+                <p>The app offers an optional cloud generation feature that sends your music prompt to the ACE Music API. This feature:</p>
+                <ul>
+                    <li>Requires you to provide your own API key</li>
+                    <li>Is disabled by default</li>
+                    <li>Only sends the prompt text and generation parameters you choose</li>
+                    <li>Is governed by the ACE Music API's own privacy policy</li>
+                </ul>
+            </div>
+
+            <div class="content-section reveal">
+                <h2>Local Storage</h2>
+                <p>All generated music, playlists, and settings are stored locally in your Mac's sandboxed application container. This data is only accessible to LocalMusic AI and is removed if you delete the app.</p>
+            </div>
+
+            <div class="content-section reveal">
+                <h2>Third-Party Services</h2>
+                <p>The app does not include any third-party analytics, advertising, or tracking SDKs.</p>
+            </div>
+
+            <div class="content-section reveal">
+                <h2>Children's Privacy</h2>
+                <p>LocalMusic AI does not collect data from any users, including children under 13.</p>
+            </div>
+
+            <div class="content-section reveal">
+                <h2>Changes to This Policy</h2>
+                <p>If this policy is updated, the changes will be posted on this page with an updated date.</p>
+            </div>
+
+            <div class="content-section reveal">
+                <h2>Contact</h2>
+                <p>If you have questions about this privacy policy, please open an issue on our <a href="https://github.com/fspecii/LocalMusicAI/issues">GitHub repository</a>.</p>
+            </div>
         </div>
 
-        <h2>Overview</h2>
-        <p>LocalMusic AI is designed with privacy as a core principle. The app runs AI models locally on your Mac using Apple Silicon. Your prompts, lyrics, and generated music never leave your device.</p>
-
-        <h2>Data We Do Not Collect</h2>
-        <p>We do not collect, track, or have access to:</p>
-        <ul>
-            <li>Personal information (name, email, location)</li>
-            <li>Usage analytics or telemetry</li>
-            <li>Music prompts, lyrics, or generated content</li>
-            <li>Device identifiers or advertising IDs</li>
-            <li>Crash reports or diagnostics</li>
-        </ul>
-
-        <h2>Network Activity</h2>
-        <p>The app makes the following network requests, none of which transmit personal data:</p>
-        <ul>
-            <li><strong>AI Model Download</strong> — On first launch, the app downloads the ACE-Step AI model (~4 GB) from Hugging Face. This is a one-time download cached locally.</li>
-            <li><strong>News Feed</strong> — The app fetches a public JSON file from GitHub to display app news and updates. No user data is sent.</li>
-            <li><strong>Stem Separation Model</strong> — If you use the stem separation feature, a ~36 MB model is downloaded once from GitHub.</li>
-            <li><strong>LoRA Style Adapters</strong> — Optional style models are downloaded from Hugging Face when selected.</li>
-        </ul>
-
-        <h2>Optional Cloud Generation</h2>
-        <p>The app offers an optional cloud generation feature that sends your music prompt to the ACE Music API. This feature:</p>
-        <ul>
-            <li>Requires you to provide your own API key</li>
-            <li>Is disabled by default</li>
-            <li>Only sends the prompt text and generation parameters you choose</li>
-            <li>Is governed by the ACE Music API's own privacy policy</li>
-        </ul>
-
-        <h2>Local Storage</h2>
-        <p>All generated music, playlists, and settings are stored locally in your Mac's sandboxed application container. This data is only accessible to LocalMusic AI and is removed if you delete the app.</p>
-
-        <h2>Third-Party Services</h2>
-        <p>The app does not include any third-party analytics, advertising, or tracking SDKs.</p>
-
-        <h2>Children's Privacy</h2>
-        <p>LocalMusic AI does not collect data from any users, including children under 13.</p>
-
-        <h2>Changes to This Policy</h2>
-        <p>If this policy is updated, the changes will be posted on this page with an updated date.</p>
-
-        <h2>Contact</h2>
-        <p>If you have questions about this privacy policy, please open an issue on our <a href="https://github.com/fspecii/LocalMusicAI/issues">GitHub repository</a>.</p>
-
-        <div class="footer">
-            <p>&copy; 2025 Valentin Neagu. All rights reserved.</p>
-        </div>
+        <footer>
+            <div class="footer-inner">
+                <span class="footer-copy">&copy; 2025 Valentin Neagu</span>
+                <div class="footer-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="support.html">Support</a>
+                    <a href="https://github.com/fspecii/LocalMusicAI">GitHub</a>
+                </div>
+            </div>
+        </footer>
     </div>
+
+    <script>
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }});
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    </script>
 </body>
 </html>

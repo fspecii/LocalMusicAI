@@ -4,115 +4,333 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Support — LocalMusic AI</title>
+    <meta name="description" content="Get help with LocalMusic AI. System requirements, FAQ, and how to report issues.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #060810;
+            --bg-raised: rgba(255,255,255,0.04);
+            --glass: rgba(255,255,255,0.06);
+            --glass-border: rgba(255,255,255,0.09);
+            --glass-hover: rgba(255,255,255,0.10);
+            --sky: #46c7ff;
+            --sky-light: #7dd3fc;
+            --teal: #2dd4bf;
+            --teal-dark: #0f766e;
+            --warm: #f59e0b;
+            --text: #e2e8f0;
+            --text-dim: rgba(255,255,255,0.55);
+            --text-muted: rgba(255,255,255,0.35);
+            --sans: 'DM Sans', -apple-system, sans-serif;
+            --serif: 'Instrument Serif', Georgia, serif;
+        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
-            background: #090b12;
-            color: rgba(255,255,255,0.85);
-            min-height: 100vh;
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
-        .bg {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 0;
-            background:
-                radial-gradient(ellipse at 20% 20%, rgba(70,199,255,0.08) 0%, transparent 50%),
-                #090b12;
+
+        /* ── Aurora Background ── */
+        .aurora {
+            position: fixed; inset: 0; z-index: 0; overflow: hidden;
+            background: var(--bg);
         }
-        .content {
-            position: relative; z-index: 1;
-            max-width: 640px; margin: 0 auto; padding: 60px 24px;
+        .aurora::before, .aurora::after {
+            content: ''; position: absolute; border-radius: 50%;
+            filter: blur(120px); opacity: 0.5;
+            animation: drift 20s ease-in-out infinite alternate;
         }
-        .back { font-size: 13px; color: #46c7ff; text-decoration: none; display: inline-block; margin-bottom: 24px; }
-        .back:hover { opacity: 0.8; }
-        h1 { font-size: 32px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-        .subtitle { font-size: 15px; color: rgba(255,255,255,0.5); margin-bottom: 36px; }
-        h2 { font-size: 18px; font-weight: 600; color: #fff; margin-top: 32px; margin-bottom: 12px; }
-        p, li { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
-        ul { padding-left: 20px; margin-bottom: 12px; }
-        li { margin-bottom: 8px; }
-        a { color: #46c7ff; }
-        .card {
-            background: rgba(255,255,255,0.06);
+        .aurora::before {
+            width: 800px; height: 600px; top: -15%; left: -10%;
+            background: radial-gradient(ellipse, rgba(70,199,255,0.18), rgba(45,212,191,0.08), transparent 70%);
+        }
+        .aurora::after {
+            width: 700px; height: 700px; bottom: -20%; right: -15%;
+            background: radial-gradient(ellipse, rgba(45,212,191,0.12), rgba(14,165,233,0.06), transparent 70%);
+            animation-delay: -10s; animation-duration: 25s;
+        }
+        .aurora-accent {
+            position: fixed; width: 500px; height: 400px;
+            top: 30%; left: 50%; transform: translate(-50%, -50%);
+            background: radial-gradient(ellipse, rgba(139,92,246,0.06), transparent 70%);
+            filter: blur(100px); border-radius: 50%; z-index: 0;
+            animation: drift 30s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -20px) scale(1.05); }
+            100% { transform: translate(-20px, 15px) scale(0.97); }
+        }
+        .grain {
+            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 200px;
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 0 24px; height: 56px;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(6,8,16,0.7);
+            backdrop-filter: blur(24px) saturate(1.4);
+            -webkit-backdrop-filter: blur(24px) saturate(1.4);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .nav-brand {
+            font-weight: 600; font-size: 15px; color: #fff;
+            text-decoration: none; display: flex; align-items: center; gap: 8px;
+        }
+        .nav-brand svg { opacity: 0.9; }
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-links a {
+            font-size: 13px; font-weight: 500; color: var(--text-dim);
+            text-decoration: none; transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #fff; }
+        .nav-cta {
+            font-size: 12px !important; font-weight: 600 !important;
+            padding: 6px 16px; border-radius: 8px;
+            background: rgba(255,255,255,0.08) !important;
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px; padding: 20px;
-            margin-bottom: 16px;
+            color: #fff !important; transition: all 0.2s !important;
         }
-        .card h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 6px; }
-        .card p { margin-bottom: 0; }
-        .req {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 8px; padding: 16px;
-            margin: 20px 0;
+        .nav-cta:hover { background: rgba(255,255,255,0.14) !important; }
+
+        /* ── Layout ── */
+        .page { position: relative; z-index: 2; }
+        .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+
+        /* ── Reveal Animation ── */
+        .reveal {
+            opacity: 0; transform: translateY(32px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .req p { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 4px; }
-        .req strong { color: rgba(255,255,255,0.8); }
-        .footer {
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 24px; margin-top: 48px;
-            font-size: 12px; color: rgba(255,255,255,0.35);
+        .reveal.visible { opacity: 1; transform: none; }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* ── Header ── */
+        .page-header {
+            padding-top: 120px; padding-bottom: 48px;
         }
+        .page-header h1 {
+            font-family: var(--serif); font-weight: 400; font-style: italic;
+            font-size: clamp(36px, 6vw, 52px); line-height: 1.1;
+            color: #fff; margin-bottom: 12px;
+        }
+        .page-header .subtitle {
+            font-size: 16px; line-height: 1.7; color: var(--text-dim);
+        }
+
+        /* ── Contact Card ── */
+        .contact-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 24px 28px;
+            margin-bottom: 48px;
+            display: flex; align-items: flex-start; gap: 16px;
+            transition: border-color 0.3s;
+        }
+        .contact-card:hover { border-color: rgba(255,255,255,0.15); }
+        .contact-icon {
+            flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, rgba(70,199,255,0.12), rgba(45,212,191,0.08));
+            border: 1px solid rgba(70,199,255,0.15);
+        }
+        .contact-card h3 {
+            font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 4px;
+        }
+        .contact-card p {
+            font-size: 13px; line-height: 1.65; color: var(--text-dim); margin: 0;
+        }
+        .contact-card a { color: var(--sky); text-decoration: none; }
+        .contact-card a:hover { text-decoration: underline; }
+
+        /* ── Specs Box ── */
+        .specs-box {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 24px 28px;
+            margin-bottom: 48px;
+        }
+        .specs-box h2 {
+            font-size: 18px; font-weight: 600; color: #fff; margin-bottom: 20px;
+        }
+        .spec-row {
+            display: flex; justify-content: space-between; align-items: baseline;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .spec-row:last-child { border-bottom: none; }
+        .spec-label {
+            font-size: 13px; font-weight: 500; color: var(--text-dim);
+        }
+        .spec-value {
+            font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.85);
+        }
+
+        /* ── FAQ ── */
+        .faq-heading {
+            font-size: 18px; font-weight: 600; color: #fff;
+            margin-bottom: 20px; padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .faq-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 24px 28px;
+            margin-bottom: 12px;
+            transition: border-color 0.3s;
+        }
+        .faq-card:hover { border-color: rgba(255,255,255,0.15); }
+        .faq-card h3 {
+            font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .faq-card p {
+            font-size: 13px; line-height: 1.7; color: var(--text-dim); margin: 0;
+        }
+
+        /* ── Footer ── */
+        footer {
+            padding: 32px 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            margin-top: 48px;
+        }
+        .footer-inner {
+            max-width: 1080px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 16px;
+        }
+        .footer-copy { font-size: 12px; color: var(--text-muted); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a {
+            font-size: 12px; color: var(--text-muted);
+            text-decoration: none; transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--sky); }
+
         @media (max-width: 600px) {
-            h1 { font-size: 26px; }
-            .content { padding: 40px 16px; }
+            .page-header h1 { font-size: 32px; }
+            .container { padding: 0 16px; }
+            .nav-links .nav-hide { display: none; }
+            .spec-row { flex-direction: column; gap: 2px; }
         }
     </style>
 </head>
 <body>
-    <div class="bg"></div>
-    <div class="content">
-        <a href="index.html" class="back">&larr; LocalMusic AI</a>
-        <h1>Support</h1>
-        <p class="subtitle">Get help with LocalMusic AI</p>
+    <div class="aurora"></div>
+    <div class="aurora-accent"></div>
+    <div class="grain"></div>
 
-        <div class="card">
-            <h3>Report a Bug or Request a Feature</h3>
-            <p>Open an issue on our <a href="https://github.com/fspecii/LocalMusicAI/issues">GitHub Issues</a> page. Please include your macOS version and a description of the problem.</p>
+    <nav>
+        <a href="index.html" class="nav-brand">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+            LocalMusic AI
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-hide">Home</a>
+            <a href="privacy.html" class="nav-hide">Privacy</a>
+            <a href="https://apps.apple.com/app/localmusic-ai/id0000000000" class="nav-cta">Get the App</a>
+        </div>
+    </nav>
+
+    <div class="page">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="reveal">Support</h1>
+                <p class="subtitle reveal reveal-delay-1">Get help with LocalMusic AI</p>
+            </div>
+
+            <div class="contact-card reveal reveal-delay-2">
+                <div class="contact-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></svg>
+                </div>
+                <div>
+                    <h3>Report a Bug or Request a Feature</h3>
+                    <p>Open an issue on our <a href="https://github.com/fspecii/LocalMusicAI/issues">GitHub Issues</a> page. Please include your macOS version and a description of the problem.</p>
+                </div>
+            </div>
+
+            <div class="specs-box reveal">
+                <h2>System Requirements</h2>
+                <div class="spec-row">
+                    <span class="spec-label">macOS</span>
+                    <span class="spec-value">15.0 (Sequoia) or later</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Chip</span>
+                    <span class="spec-value">Apple Silicon (M1 or later)</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">RAM</span>
+                    <span class="spec-value">16 GB minimum, 32 GB recommended</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-label">Storage</span>
+                    <span class="spec-value">~5 GB for AI model</span>
+                </div>
+            </div>
+
+            <h2 class="faq-heading reveal">Frequently Asked Questions</h2>
+
+            <div class="faq-card reveal">
+                <h3>The app is downloading a large model on first launch. Is this normal?</h3>
+                <p>Yes. LocalMusic AI downloads the ACE-Step AI model (~4 GB) the first time you generate music. This is cached locally and only needs to happen once.</p>
+            </div>
+
+            <div class="faq-card reveal">
+                <h3>Generation is slow on my machine. What can I do?</h3>
+                <p>Generation speed depends on your Apple Silicon chip and available RAM. Reducing the duration or number of diffusion steps will speed things up. Machines with 8 GB RAM may experience slower generation due to memory pressure.</p>
+            </div>
+
+            <div class="faq-card reveal">
+                <h3>Can I use the app offline?</h3>
+                <p>Yes, once the AI model is downloaded. All music generation runs locally on your Mac. The only features requiring internet are the initial model download and the optional cloud generation mode.</p>
+            </div>
+
+            <div class="faq-card reveal">
+                <h3>Where are my generated songs stored?</h3>
+                <p>Songs are stored in the app's sandboxed container. You can export them using the share or save options within the app.</p>
+            </div>
+
+            <div class="faq-card reveal">
+                <h3>How do I delete the model cache to free disk space?</h3>
+                <p>Go to Settings within the app and use the "Delete Model Cache" option. The model will be re-downloaded the next time you generate music.</p>
+            </div>
+
+            <div class="faq-card reveal">
+                <h3>What is stem separation?</h3>
+                <p>Stem separation splits an audio file into separate tracks (vocals and accompaniment). It uses a Spleeter model that is downloaded separately (~36 MB) on first use.</p>
+            </div>
         </div>
 
-        <h2>System Requirements</h2>
-        <div class="req">
-            <p><strong>macOS:</strong> 15.0 (Sequoia) or later</p>
-            <p><strong>Chip:</strong> Apple Silicon (M1 or later)</p>
-            <p><strong>RAM:</strong> 16 GB minimum, 32 GB recommended</p>
-            <p><strong>Storage:</strong> ~5 GB for the AI model (downloaded on first launch)</p>
-        </div>
-
-        <h2>Frequently Asked Questions</h2>
-
-        <div class="card">
-            <h3>The app is downloading a large model on first launch. Is this normal?</h3>
-            <p>Yes. LocalMusic AI downloads the ACE-Step AI model (~4 GB) the first time you generate music. This is cached locally and only needs to happen once.</p>
-        </div>
-
-        <div class="card">
-            <h3>Generation is slow on my machine. What can I do?</h3>
-            <p>Generation speed depends on your Apple Silicon chip and available RAM. Reducing the duration or number of diffusion steps will speed things up. Machines with 8 GB RAM may experience slower generation due to memory pressure.</p>
-        </div>
-
-        <div class="card">
-            <h3>Can I use the app offline?</h3>
-            <p>Yes, once the AI model is downloaded. All music generation runs locally on your Mac. The only features requiring internet are the initial model download and the optional cloud generation mode.</p>
-        </div>
-
-        <div class="card">
-            <h3>Where are my generated songs stored?</h3>
-            <p>Songs are stored in the app's sandboxed container. You can export them using the share or save options within the app.</p>
-        </div>
-
-        <div class="card">
-            <h3>How do I delete the model cache to free disk space?</h3>
-            <p>Go to Settings within the app and use the "Delete Model Cache" option. The model will be re-downloaded the next time you generate music.</p>
-        </div>
-
-        <div class="card">
-            <h3>What is stem separation?</h3>
-            <p>Stem separation splits an audio file into separate tracks (vocals and accompaniment). It uses a Spleeter model that is downloaded separately (~36 MB) on first use.</p>
-        </div>
-
-        <div class="footer">
-            <p>&copy; 2025 Valentin Neagu. All rights reserved.</p>
-        </div>
+        <footer>
+            <div class="footer-inner">
+                <span class="footer-copy">&copy; 2025 Valentin Neagu</span>
+                <div class="footer-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="support.html">Support</a>
+                    <a href="https://github.com/fspecii/LocalMusicAI">GitHub</a>
+                </div>
+            </div>
+        </footer>
     </div>
+
+    <script>
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }});
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    </script>
 </body>
 </html>
