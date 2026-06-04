@@ -276,6 +276,26 @@
             text-decoration: none; transition: color 0.2s;
         }
         .footer-links a:hover { color: var(--sky); }
+        .footer-built {
+            max-width: 1080px; margin: 0 auto 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex; justify-content: center; align-items: center;
+            gap: 8px; flex-wrap: wrap;
+            font-size: 13px; color: var(--text-dim);
+        }
+        .footer-built a {
+            color: var(--sky); text-decoration: none;
+            font-weight: 500; transition: color 0.2s;
+        }
+        .footer-built a:hover { color: var(--sky-light); text-decoration: underline; }
+        .footer-built-tag {
+            display: inline-block; padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(70,199,255,0.10);
+            border: 1px solid rgba(70,199,255,0.20);
+            font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase;
+        }
 
         /* ── Responsive ── */
         @media (max-width: 768px) {
@@ -437,9 +457,16 @@
 
         <!-- Footer -->
         <footer>
+            <div class="footer-built">
+                <span class="footer-built-tag">Made by</span>
+                <span>Need a website, web app, or AI integration? Built by</span>
+                <a href="https://websitefirma.ro" target="_blank" rel="noopener">websitefirma.ro</a>
+                <span>— same team, production-grade work.</span>
+            </div>
             <div class="footer-inner">
                 <span class="footer-copy">&copy; 2025 Valentin Neagu</span>
                 <div class="footer-links">
+                    <a href="https://websitefirma.ro" target="_blank" rel="noopener">Web Agency</a>
                     <a href="privacy.html">Privacy Policy</a>
                     <a href="support.html">Support</a>
                     <a href="https://github.com/fspecii/LocalMusicAI">GitHub</a>
